@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Sign Up | Store</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Store Logo" class="logo-image" style="height:1em;width:auto;border-radius:4px;" />
+        <span>Store</span>
+      </a>
+      <button class="mobile-menu-btn">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html" class="active">Login</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+      <a href="cart.html" class="cart-icon-container" style="font-size:1.4rem;color:var(--dark-brown);position:relative;text-decoration:none;">
+        🛒 <span class="cart-badge" id="nav-badge">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Auth Section -->
+  <section class="section-padding" style="background-color: var(--cream); border-radius: 50px;">
+    <div class="container">
+      <div class="auth-container">
+        <div class="auth-tabs">
+          <!-- FIX: truyền event vào switchTab -->
+          <div class="auth-tab active" onclick="switchTab('login', event)">Sign In</div>
+          <div class="auth-tab" onclick="switchTab('signup', event)">Sign Up</div>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form active" onsubmit="return false;">
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <input type="email" id="login-email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="login-password" placeholder="Enter your password" required>
+              <span class="eye-icon" id="eye"><i class="fa-solid fa-eye-low-vision"></i></span>
+            </div>
+          </div>
+          <!-- FIX: thêm id để JS bắt sự kiện, bỏ type="button" thành button thường -->
+          <button id="btn-login" class="btn btn-primary auth-btn">Sign In</button>
+          <!-- FIX: thêm div hiển thị thông báo -->
+          <div id="login-msg" style="margin-top:12px;font-size:0.9rem;display:none;text-align:center;"></div>
+          <div class="text-center" style="margin-top: 15px; font-size: 0.9rem;">
+            <a href="#" style="color: var(--light-brown); text-decoration: underline;">Forgot Password?</a>
+          </div>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" class="auth-form" onsubmit="return false;">
+          <div class="form-group">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email Address</label>
+            <input type="email" id="signup-email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <div class="password-wrapper">
+              <input type="password" id="signup-password" placeholder="Create a password (min. 6 ký tự)" required>
+              <span class="eye-icon" id="eye2"><i class="fa-solid fa-eye-low-vision"></i></span>
+            </div>
+          </div>
+          <!-- FIX: thêm id để JS bắt sự kiện -->
+          <button id="btn-signup" class="btn btn-primary auth-btn">Create Account</button>
+          <!-- FIX: thêm div hiển thị thông báo -->
+          <div id="signup-msg" style="margin-top:12px;font-size:0.9rem;display:none;text-align:center;"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>☁️ Store</h3>
+          <p style="color: #666; font-size: 0.9rem;">Người bạn mềm mại trong giấc ngủ của bạn.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="contact.html">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Store.
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

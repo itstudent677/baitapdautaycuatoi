@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop | Store</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .logo-image {
+      height: 1em;
+      width: auto;
+      border-radius: 4px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .btn-add-cart {
+      width: 100%;
+      margin-top: auto;
+      padding: 10px;
+      border-radius: 50px;
+      background-color: var(--soft-pink);
+      color: var(--dark-brown);
+      border: none;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-add-cart:hover {
+      background-color: #ffb6c1;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255,182,193,0.4);
+    }
+    .btn-add-cart.added {
+      background-color: #b5e8c8;
+      color: #2e7d52;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Store Logo" class="logo-image" />
+        <span>Store</span>
+      </a>
+      <button class="mobile-menu-btn">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html" class="active">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+      <a href="cart.html" class="cart-icon-container" style="font-size:1.4rem;color:var(--dark-brown);position:relative;text-decoration:none;">
+        🛒 <span class="cart-badge" id="nav-badge">0</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="container section-padding">
+    <h1 class="section-title text-center">Adopt a Friend</h1>
+    <p class="section-subtitle text-center">Browse our full collection of soft companions.</p>
+
+    <div class="product-grid" id="shop-grid">
+
+      <div class="product-card">
+        <div class="product-badge">Top bán chạy</div>
+        <img src="croissant.jpg" alt="Croissant" class="product-image" />
+        <h3 class="product-title">Bánh Sừng Bò</h3>
+        <p class="product-desc">Gấu bông Bánh sừng bò được làm bàng vải cotton mềm mại, kết hợp bông tơ tằm an toàn cho bé, có thảo dược giúp ngủ ngon bên trong.</p>
+        <div class="product-price">$24.99</div>
+        <button class="btn-add-cart" onclick="addToCart(this,'Bánh Sừng Bò',24.99,'croissant.jpg')">🛒 Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card">
+        <img src="bear.jpg" alt="Sleepy Teddy Bear" class="product-image" />
+        <h3 class="product-title">Gấu Teddy Ngủ Nhiều</h3>
+        <p class="product-desc">Gấu Bông Teddy được thiết kế với chất liệu mềm mại, mang lại cảm giác ấm áp và an toàn cho bé.</p>
+        <div class="product-price">$32.50</div>
+        <button class="btn-add-cart" onclick="addToCart(this,'Gấu Teddy Ngủ Nhiều',32.50,'bear.jpg')">🛒 Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-badge">Sản phẩm mới</div>
+        <img src="strawberry-bunny.jpg" alt="Strawberry Bunny" class="product-image" />
+        <h3 class="product-title">Thỏ Dâu Tây</h3>
+        <p class="product-desc">Gấu bông Thỏ Dâu Tây được làm từ vải cotton mềm mại, mang lại cảm giác ấm áp và an toàn cho bé.</p>
+        <div class="product-price">$28.00</div>
+        <button class="btn-add-cart" onclick="addToCart(this,'Thỏ Dâu Tây',28.00,'strawberry-bunny.jpg')">🛒 Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card">
+        <img src="cloud-whale.jpg" alt="Cloud Whale" class="product-image" />
+        <h3 class="product-title">Cá Voi Mây</h3>
+        <p class="product-desc">Gấu bông Cá Voi Mây được làm từ vải cotton mềm mại, mang lại cảm giác ấm áp và an toàn cho bé.</p>
+        <div class="product-price">$35.00</div>
+        <button class="btn-add-cart" onclick="addToCart(this,'Cá Voi Mây',35.00,'cloud-whale.jpg')">🛒 Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card">
+        <img src="tiny-dragon.jpg" alt="Tiny Dragon" class="product-image" />
+        <h3 class="product-title">Rồng Nhỏ</h3>
+        <p class="product-desc">Gấu bông Rồng Nhỏ được làm từ vải cotton mềm mại, mang lại cảm giác ấm áp và an toàn cho bé.</p>
+        <div class="product-price">$18.50</div>
+        <button class="btn-add-cart" onclick="addToCart(this,'Rồng Nhỏ',18.50,'tiny-dragon.jpg')">🛒 Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card">
+        <img src="pancake-pup.jpg" alt="Pancake Pup" class="product-image" />
+        <h3 class="product-title">Bánh Kẹo</h3>
+        <p class="product-desc">Gấu bông Bánh Kẹo được làm từ vải cotton mềm mại, mang lại cảm giác ấm áp và an toàn cho bé.</p>
+        <div class="product-price">$26.00</div>
+        <button class="btn-add-cart" onclick="addToCart(this,'Bánh Kẹo',26.00,'pancake-pup.jpg')">🛒 Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card">
+        <div class="product-badge">Top bán chạy</div>
+        <img src="owl.jpg" alt="Moonlit Owl" class="product-image" />
+        <h3 class="product-title">Cú Trăng</h3>
+        <p class="product-desc">Gấu bông Cú Trăng được làm từ vải cotton mềm mại, mang lại cảm giác ấm áp và an toàn cho bé.</p>
+        <div class="product-price">$30.00</div>
+        <button class="btn-add-cart" onclick="addToCart(this,'Cú Trăng',30.00,'owl.jpg')">🛒 Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card">
+        <img src="pocket-frog.jpg" alt="Pocket Frog" class="product-image" />
+        <h3 class="product-title">Ếch Nhỏ</h3>
+        <p class="product-desc">Gấu bông Ếch Nhỏ được làm từ vải cotton mềm mại, mang lại cảm giác ấm áp và an toàn cho bé.</p>
+        <div class="product-price">$15.00</div>
+        <button class="btn-add-cart" onclick="addToCart(this,'Ếch Nhỏ',15.00,'pocket-frog.jpg')">🛒 Thêm vào giỏ</button>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>☁️ Store</h3>
+          <p style="color:#666;font-size:0.9rem;">Soft friends for every moment. Designed to bring comfort and joy to your life.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="contact.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Join the Family</h3>
+          <p style="color:#666;font-size:0.9rem;">Subscribe for new arrivals and sweet surprises.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit" class="btn btn-primary" style="padding:10px 20px;">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 Store. All hugs reserved.</div>
+    </div>
+  </footer>
+<script >
+let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    function updateBadge() {
+      const total = cart.reduce(function(sum, item) { return sum + item.qty; }, 0);
+      document.getElementById('nav-badge').textContent = total;
+    }
+
+    function addToCart(btn, name, price, img) {
+      const existing = cart.find(function(i) { return i.name === name; });
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ name: name, price: price, img: img, qty: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateBadge();
+
+      // Đổi nút thành " Đã thêm!" trong 1.5 giây
+      btn.textContent = ' Đã thêm!';
+      btn.classList.add('added');
+      setTimeout(function() {
+        btn.textContent = '🛒 Thêm vào giỏ';
+        btn.classList.remove('added');
+      }, 1500);
+    }
+
+    // Mobile menu
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    });
+
+    updateBadge();
+  </script>
+
+</body>
+</html>

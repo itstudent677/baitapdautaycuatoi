@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ Hàng | Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Store Logo" class="logo-image" style="height:1em;width:auto;border-radius:4px;" />
+        <span>Store</span>
+      </a>
+      <button class="mobile-menu-btn">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+        <a href="cart.html" class="cart-icon-container" style="font-size:1.4rem;color:var(--dark-brown);position:relative;text-decoration:none;">
+        🛒 <span class="cart-badge" id="nav-badge">0</span>
+        </a>
+    </div>
+  </header>
+
+  <div class="container section-padding">
+    <h1 class="section-title">🛒 Giỏ Hàng Của Bạn</h1>
+    <div class="cart-container">
+      <div class="cart-items" id="cart-items-container">
+        <!-- JS sẽ render vào đây -->
+      </div>
+      <div class="cart-summary">
+        <h3 style="margin-bottom:20px;">Tổng Đơn Hàng</h3>
+        <div class="summary-row"><span>Tạm tính</span><span id="subtotal">$0.00</span></div>
+        <div class="summary-row"><span>Phí vận chuyển</span><span>$3.00</span></div>
+        <div class="summary-row summary-total"><span>Tổng cộng</span><span id="total">$3.00</span></div>
+        <a href="checkout.html" class="btn btn-primary" style="width:100%;margin-top:20px;display:block;text-align:center;">
+          Thanh Toán →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">&copy; 2026 Store.</div>
+    </div>
+  </footer>
+
+<script> 
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const container = document.getElementById('cart-items-container');
+    const subtotalEl = document.getElementById('subtotal');
+    const totalEl = document.getElementById('total');
+
+    function render() {
+      if (cart.length === 0) {
+        container.innerHTML = '<div class="empty-cart-message"><p style="font-size:3rem">🛒</p><h3>Giỏ hàng trống!</h3><a href="shop.html" class="btn btn-primary" style="margin-top:20px">Mua sắm ngay</a></div>';
+        return;
+      }
+      container.innerHTML = cart.map((item, i) => `
+        <div class="cart-item">
+          <img src="${item.img}" class="cart-item-img" onerror="this.src=''" alt="${item.name}">
+          <div class="cart-item-details">
+            <div class="cart-item-title">${item.name}</div>
+            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+            <div class="quantity-controls">
+              <button class="qty-btn" onclick="changeQty(${i}, -1)">−</button>
+              <span>${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${i}, 1)">+</button>
+            </div>
+            <button class="remove-btn" onclick="removeItem(${i})">Xóa</button>
+          </div>
+        </div>
+      `).join('');
+      const sub = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      subtotalEl.textContent = '$' + sub.toFixed(2);
+      totalEl.textContent = '$' + (sub + 3).toFixed(2);
+      document.querySelector('.cart-badge').textContent = cart.reduce((s,i) => s + i.qty, 0);
+    }
+
+    function changeQty(i, d) {
+      cart[i].qty += d;
+      if (cart[i].qty <= 0) cart.splice(i, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      render();
+    }
+
+    function removeItem(i) {
+      cart.splice(i, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      render();
+    }
+
+    render();
+</script>
+</body>
+</html>

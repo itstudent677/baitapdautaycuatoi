@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh Toán | Store</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Store Logo" class="logo-image" style="height:1em;width:auto;border-radius:4px;" />
+        <span>Store</span>
+      </a>
+      <button class="mobile-menu-btn">☰</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+      <a href="cart.html" class="cart-icon-container" style="font-size:1.4rem;color:var(--dark-brown);position:relative;text-decoration:none;">
+        🛒 <span class="cart-badge" id="nav-badge">0</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="container section-padding">
+
+    <!-- Step Indicator -->
+    <div class="checkout-steps">
+      <div class="step done">
+        <div class="step-circle">✓</div>
+        <span class="step-label">Giỏ hàng</span>
+      </div>
+      <div class="step-line done"></div>
+      <div class="step active">
+        <div class="step-circle">2</div>
+        <span class="step-label">Thanh toán</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-circle">3</div>
+        <span class="step-label">Hoàn tất</span>
+      </div>
+    </div>
+
+    <div class="checkout-wrapper">
+
+      <!-- LEFT: Form -->
+      <div class="checkout-form-panel">
+
+        <!-- Shipping Info -->
+        <div class="checkout-section">
+          <h2> Thông Tin Giao Hàng</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Họ</label>
+              <input type="text" placeholder="Nguyễn" id="first-name">
+            </div>
+            <div class="form-group">
+              <label>Tên</label>
+              <input type="text" placeholder="Thị Mai" id="last-name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="email@example.com" id="email">
+          </div>
+          <div class="form-group">
+            <label>Số điện thoại</label>
+            <input type="tel" placeholder="0901 234 567" id="phone">
+          </div>
+          <div class="form-group">
+            <label>Địa chỉ</label>
+            <input type="text" placeholder="Số nhà, tên đường..." id="address">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Quận / Huyện</label>
+              <input type="text" placeholder="Quận 1" id="district">
+            </div>
+            <div class="form-group">
+              <label>Tỉnh / Thành phố</label>
+              <select id="city">
+                <option value="">-- Chọn --</option>
+                <option>Hồ Chí Minh</option>
+                <option>Hà Nội</option>
+                <option>Đà Nẵng</option>
+                <option>Cần Thơ</option>
+                <option>Hải Phòng</option>
+                <option>Nha Trang</option>
+                <option>Khác</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="checkout-section">
+          <h2> Phương Thức Thanh Toán</h2>
+
+          <div class="payment-methods">
+            <div class="payment-method selected" data-method="cod" onclick="selectPayment(this)">
+              <span class="pm-icon">💵</span>
+              Tiền mặt
+            </div>
+            <div class="payment-method" data-method="card" onclick="selectPayment(this)">
+              <span class="pm-icon">💳</span>
+              Thẻ tín dụng
+            </div>
+            <div class="payment-method" data-method="momo" onclick="selectPayment(this)">
+              <span class="pm-icon">📱</span>
+              MoMo
+            </div>
+            <div class="payment-method" data-method="bank" onclick="selectPayment(this)">
+              <span class="pm-icon">🏦</span>
+              Chuyển khoản
+            </div>
+          </div>
+
+          <!-- Card fields (show when card selected) -->
+          <div class="card-fields" id="card-fields">
+            <div class="form-group">
+              <label>Số thẻ</label>
+              <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" id="card-number" oninput="formatCard(this)">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Ngày hết hạn</label>
+                <input type="text" placeholder="MM / YY" maxlength="7" id="card-expiry" oninput="formatExpiry(this)">
+              </div>
+              <div class="form-group">
+                <label>CVV</label>
+                <input type="password" placeholder="•••" maxlength="3" id="card-cvv">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Tên chủ thẻ</label>
+              <input type="text" placeholder="NGUYEN THI MAI">
+            </div>
+          </div>
+
+          <!-- MoMo info -->
+          <div id="momo-info" style="display:none; background:var(--cream); border-radius:12px; padding:16px; font-size:0.9rem; color:#666; line-height:1.7;">
+             Vui lòng chuyển khoản đến số MoMo: <strong style="color:var(--dark-brown)">0901 234 567</strong><br>
+            Nội dung: <strong style="color:var(--dark-brown)" id="momo-order-id">ORDER-XXXX</strong>
+          </div>
+
+          <!-- Bank info -->
+          <div id="bank-info" style="display:none; background:var(--cream); border-radius:12px; padding:16px; font-size:0.9rem; color:#666; line-height:1.7;">
+            🏦 Ngân hàng: <strong style="color:var(--dark-brown)">Vietcombank</strong><br>
+            Số tài khoản: <strong style="color:var(--dark-brown)">1234 5678 9012</strong><br>
+            Chủ tài khoản: <strong style="color:var(--dark-brown)">CONG TY TNHH Hello Kitty STORE</strong><br>
+            Nội dung CK: <strong style="color:var(--dark-brown)" id="bank-order-id">ORDER-XXXX</strong>
+          </div>
+        </div>
+
+        <!-- Note -->
+        <div class="checkout-section">
+          <h2> Ghi Chú Đơn Hàng</h2>
+          <div class="form-group" style="margin-bottom:0">
+            <textarea id="note" rows="3" 
+              style="width:100%;padding:12px 15px;border:1.5px solid #e8d5d8;border-radius:12px;font-family:var(--font-body);resize:vertical;background:#fdfafa;"
+              placeholder="Ví dụ: Giao giờ hành chính, để trước cửa, gói quà tặng..."></textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Order Summary -->
+      <div class="order-summary-panel">
+        <div class="order-summary">
+          <h2> Đơn Hàng Của Bạn</h2>
+
+          <div id="order-items">
+            <!-- Render by JS -->
+            <div style="text-align:center;padding:20px;color:#bbb;">Đang tải...</div>
+          </div>
+
+          <hr class="summary-divider">
+
+          <div class="summary-row">
+            <span>Tạm tính</span>
+            <span id="order-subtotal">$0.00</span>
+          </div>
+          <div class="summary-row" id="discount-row" style="display:none;color:#e06b8c;">
+            <span>Giảm giá </span>
+            <span id="discount-amount">-$0.00</span>
+          </div>
+          <div class="summary-row">
+            <span>Phí vận chuyển</span>
+            <span>$3.00</span>
+          </div>
+          <div class="summary-row total">
+            <span>Tổng cộng</span>
+            <span id="order-total">$3.00</span>
+          </div>
+
+          <!-- Coupon -->
+          <div class="coupon-row">
+            <input type="text" id="coupon-input" placeholder="Mã giảm giá...">
+            <button onclick="applyCoupon()">Áp dụng</button>
+          </div>
+          <div id="coupon-msg" style="font-size:0.82rem;margin-top:8px;min-height:18px;"></div>
+
+          <button class="btn-place-order" onclick="placeOrder()">
+            Đặt Hàng Ngay 
+          </button>
+          <div class="secure-note"> Thanh toán an toàn & bảo mật</div>
+
+          <div style="text-align:center;margin-top:16px;">
+            <a href="cart.html" style="font-size:0.85rem;color:var(--light-brown);text-decoration:underline;">
+              ← Quay lại giỏ hàng
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>☁️ Store</h3>
+          <p style="color:#666;font-size:0.9rem;">Soft friends for every moment.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2026 Store. All hugs reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Success Overlay -->
+  <div class="success-overlay" id="success-overlay">
+    <div class="success-icon"> <img src="hellokitty.gif" alt="Success" style="width:80px;height:80px;"></div>
+    <div class="success-message">
+    <h2>Đặt hàng thành công!</h2>
+    <p style="margin:10px 0 8px;">Cảm ơn bạn đã tin tưởng Store <br>Chúng tôi sẽ liên hệ xác nhận đơn hàng sớm nhất.</p>
+    <p id="success-order-id" style="font-weight:700;color:var(--light-brown);margin-bottom:30px;"></p>
+    <a href="shop.html" class="btn btn-primary" style="padding:14px 40px;">Tiếp tục mua sắm 🛍️</a>
+  </div>
+<script>
+    (function () {
+    const container = document.getElementById('petals-container');
+    if (!container) return;
+
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+
+        const size = Math.random() * 6 + 6;
+        const duration = Math.random() * 3 + 4;
+
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.width = petal.style.height = size + 'px';
+        petal.style.animationDuration = duration + 's';
+        petal.style.opacity = Math.random() * 0.4 + 0.4;
+
+        container.appendChild(petal);
+
+        setTimeout(() => petal.remove(), (duration + 1) * 1000);
+    }
+
+    setInterval(createPetal, 220);
+
+    for (let i = 0; i < 12; i++) {
+        setTimeout(createPetal, i * 120);
+    }
+})();
+
+  
+    // ======= Load cart =======
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    let discountPct = 0;
+    const COUPONS = { 'YNSTORE10': 10, 'BEAR20': 20, 'SOFT5': 5 };
+    const orderId = 'ORDER-' + Math.floor(Math.random() * 90000 + 10000);
+
+    document.getElementById('momo-order-id').textContent = orderId;
+    document.getElementById('bank-order-id').textContent  = orderId;
+
+    function renderOrder() {
+      const container = document.getElementById('order-items');
+      if (!cart.length) {
+        container.innerHTML = '<div style="text-align:center;padding:20px;color:#bbb;font-size:0.9rem;">Giỏ hàng trống<br><a href="shop.html" style="color:var(--soft-pink)">← Mua sắm ngay</a></div>';
+        updateTotals();
+        return;
+      }
+      container.innerHTML = cart.map(item => `
+        <div class="order-item">
+          <div class="order-item-img-placeholder">🧸</div>
+          <div style="flex:1;min-width:0;">
+            <div class="order-item-name">${item.name}</div>
+            <div class="order-item-qty">x${item.qty}</div>
+          </div>
+          <div class="order-item-price">$${(item.price * item.qty).toFixed(2)}</div>
+        </div>
+      `).join('');
+      updateTotals();
+    }
+
+    function updateTotals() {
+      const sub  = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      const disc = sub * discountPct / 100;
+      const total = sub - disc + 3;
+
+      document.getElementById('order-subtotal').textContent = '$' + sub.toFixed(2);
+      document.getElementById('order-total').textContent    = '$' + total.toFixed(2);
+
+      const discRow = document.getElementById('discount-row');
+      if (disc > 0) {
+        discRow.style.display = 'flex';
+        document.getElementById('discount-amount').textContent = '-$' + disc.toFixed(2);
+      } else {
+        discRow.style.display = 'none';
+      }
+
+      // nav badge
+      const badge = document.getElementById('nav-badge');
+      if (badge) badge.textContent = cart.reduce((s, i) => s + i.qty, 0);
+    }
+
+    // ======= Payment method =======
+    function selectPayment(el) {
+      document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+      el.classList.add('selected');
+      const method = el.dataset.method;
+      document.getElementById('card-fields').classList.toggle('visible', method === 'card');
+      document.getElementById('momo-info').style.display  = method === 'momo'  ? 'block' : 'none';
+      document.getElementById('bank-info').style.display  = method === 'bank'  ? 'block' : 'none';
+    }
+
+    // ======= Card formatting =======
+    function formatCard(input) {
+      let v = input.value.replace(/\D/g, '').substring(0, 16);
+      input.value = v.replace(/(.{4})/g, '$1 ').trim();
+    }
+    function formatExpiry(input) {
+      let v = input.value.replace(/\D/g, '').substring(0, 4);
+      if (v.length >= 2) v = v.substring(0, 2) + ' / ' + v.substring(2);
+      input.value = v;
+    }
+
+    // ======= Coupon =======
+    function applyCoupon() {
+      const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+      const msg  = document.getElementById('coupon-msg');
+      if (COUPONS[code]) {
+        discountPct = COUPONS[code];
+        msg.style.color = '#2e7d52';
+        msg.textContent = ` Áp dụng thành công! Giảm ${discountPct}%`;
+        updateTotals();
+      } else {
+        msg.style.color = '#e06b6b';
+        msg.textContent = 'Mã không hợp lệ. Thử: YNSTORE10, BEAR20, SOFT5';
+      }
+    }
+
+    // ======= Place Order =======
+    function placeOrder() {
+      const firstName = document.getElementById('first-name').value.trim();
+      const lastName  = document.getElementById('last-name').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const phone     = document.getElementById('phone').value.trim();
+      const address   = document.getElementById('address').value.trim();
+      const city      = document.getElementById('city').value;
+
+      if (!firstName || !lastName || !email || !phone || !address || !city) {
+        alert(' Vui lòng điền đầy đủ thông tin giao hàng!');
+        return;
+      }
+      if (!cart.length) {
+        alert(' Giỏ hàng trống!');
+        return;
+      }
+
+      // Clear cart
+      localStorage.removeItem('cart');
+
+      // Show success
+      document.getElementById('success-order-id').textContent = 'Mã đơn hàng: ' + orderId;
+      document.getElementById('success-overlay').classList.add('show');
+    }
+
+    // ======= Mobile menu =======
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    if (menuBtn) menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+
+    // ======= Init =======
+    renderOrder();
+</script>
+
+</body>
+</html>

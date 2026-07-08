@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☁️Store | Soft friends for every moment</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" herf="app.css">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Store Logo" class="logo-image" style="height:1em;width:auto;border-radius:4px;" />
+        <span>Store</span>
+      </a>
+
+      <button class="mobile-menu-btn">☰</button>
+
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="admin.html">Admin</a></li>
+
+      </ul>
+            <a href="cart.html" class="cart-icon-container" style="font-size:1.4rem;color:var(--dark-brown);position:relative;text-decoration:none;">
+        🛒 <span class="cart-badge" id="nav-badge">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-text">
+        <h1>Người bạn mềm mại của bạn</h1>
+        <p>Bán đồ nhỏ, tấm lòng to</p>
+        <a href="shop.html" class="btn btn-primary">Shop</a>
+      </div>
+      <div class="hero-image placeholder-img" style="font-size: 5rem; border: none; background: transparent;">
+        
+        <img src="hellokitty.gif" alt="Hero Image" class="hero-image" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Best Sellers Section -->
+  <section class="section-padding">
+    <div class="container">
+      <h2 class="section-title text-center">Sản phẩm bán chạy</h2>
+      <p class="section-subtitle text-center">Hãy chọn theo trái tim của bạn.</p>
+
+      <div class="product-grid" id="home-featured-grid">
+
+        <div class="product-card">
+          <div class="product-badge">Top bán chạy</div>
+            <img src="croissant.jpg" alt="Croissant" class="product-image" />
+         <h3 class="product-title">Bánh Sừng Bò</h3>
+          <p class="product-desc">Gấu bông Bánh sừng bò được làm bàng vải cotton mềm mại, kết hợp bông tơ tằm an toàn cho bé, có thảo dược giúp ngủ ngon bên trong..</p>
+          <div class="product-price">$24.99</div>
+          <button class="btn btn-primary" style="margin-top:auto;" 
+  onclick="addToCart('Bánh Sừng Bò', 24.99, 'croissant.jpg')">
+  🛒 Thêm vào giỏ
+</button>
+        </div>
+
+        <div class="product-card">
+          <img src="bear.jpg" alt="Sleepy Teddy Bear" class="product-image" />
+          <h3 class="product-title">Gấu Teddy Ngủ Nhiều </h3>
+          <p class="product-desc">Gấu Bông Teddy được thiết kế với chất liệu mềm mại, mang lại cảm giác ấm áp và an toàn cho bé.</p>
+          <div class="product-price">$32.50</div>
+          <button class="btn btn-primary" style="margin-top:auto;" 
+  onclick="addToCart('Gấu Teddy Ngủ Nhiều', 32.50, 'bear.jpg')">
+  🛒 Thêm vào giỏ
+</button>
+        </div>
+
+        <div class="product-card">
+          <div class="product-badge">Sản phẩm mới</div>
+          <img src="strawberry-bunny.jpg" alt="Strawberry Bunny" class="product-image" />
+          <h3 class="product-title">Thỏ Dâu Tây</h3>
+          <p class="product-desc">Gấu bông Thỏ Dâu Tây được làm từ vải cotton mềm mại, mang lại cảm giác ấm áp và an toàn cho bé.</p>
+          <div class="product-price">$28.00</div>
+          <button class="btn btn-primary" style="margin-top:auto;" 
+  onclick="addToCart('Thỏ Dâu Tây', 28.00, 'strawberry-bunny.jpg')">
+  🛒 Thêm vào giỏ
+</button>
+        </div>
+
+        <div class="product-card">
+          <img src="cloud-whale.jpg" alt="Cloud Whale" class="product-image" />
+          <h3 class="product-title">Cá Voi Mây</h3>
+          <p class="product-desc">Gấu bông Cá Voi Mây được làm từ vải cotton mềm mại, mang lại cảm giác ấm áp và an toàn cho bé.</p>
+          <div class="product-price">$35.00</div>
+          <button class="btn btn-primary" style="margin-top:auto;" 
+  onclick="addToCart('Cá Voi Mây', 35.00, 'cloud-whale.jpg')">
+  🛒 Thêm vào giỏ
+</button>
+        </div>
+
+      </div>
+
+      <div class="text-center" style="margin-top: 40px;">
+        <a href="shop.html" class="btn btn-outline">Xem thêm</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Reviews -->
+  <section class="section-padding" style="background-color: var(--cream); border-radius: 50px;">
+    <div class="container text-center">
+      <h2 class="section-title">Đánh giá từ khách hàng</h2>
+      <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin-top: 40px;">
+
+        <div
+          style="background: white; padding: 30px; border-radius: 20px; max-width: 300px; box-shadow: var(--shadow);">
+          <div style="color: #FFD700; margin-bottom: 10px;">★★★★★</div>
+          <p style="font-style: italic;">"Tôi rất thích Bánh Sừng Bò!"</p>
+          <p style="margin-top: 15px; font-weight: bold; color: var(--light-brown);">- Sigma Boi.</p>
+        </div>
+
+        <div
+          style="background: white; padding: 30px; border-radius: 20px; max-width: 300px; box-shadow: var(--shadow);">
+          <div style="color: #FFD700; margin-bottom: 10px;">★★★★★</div>
+          <p style="font-style: italic;">"Gấu bông rất đáng yêu, tôi sẽ mua thêm!"</p>
+          <p style="margin-top: 15px; font-weight: bold; color: var(--light-brown);">- Hello Kitty.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>☁️ Store</h3>
+          <p style="color: #666; font-size: 0.9rem;">Người bạn mềm mại trong giấc ngủ của bạn.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="contact.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Tham Gia ngay</h3>
+          <p style="color: #666; font-size: 0.9rem;">ủng hộ tôi để nhận nhiều sự đáng yêu hơn.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email" required>
+            <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Store. 
+      </div>
+    </div>
+    <div id="petals-container"></div>
+<script src="app.js"></script>
+  </footer>
+</body>
+</html>

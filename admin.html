@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-brand">Quản Lý</div>
+    <div class="login-sub">Quản lý cửa hàng</div>
+    <div class="login-h2">Đăng Nhập</div>
+    <div class="ig">
+      <i class="fa-solid fa-user pre"></i>
+      <input type="text" id="lu" placeholder="Tên đăng nhập" autocomplete="off">
+    </div>
+    <div class="ig">
+      <i class="fa-solid fa-lock pre"></i>
+      <input type="password" id="lp" placeholder="Mật khẩu">
+      <button class="eye" onclick="toggleEye()"><i class="fa-solid fa-eye" id="eye-ic"></i></button>
+    </div>
+    <button class="btn-login" onclick="doLogin()">Đăng Nhập</button>
+    <div class="login-err" id="lerr"><i class="fa-solid fa-circle-exclamation"></i> Sai tài khoản hoặc mật khẩu!</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <img src="logo.png" class="logo-image" />
+      <br> Admin</div>
+    <nav class="sb-nav">
+      <button class="nav-item active" onclick="goto('dashboard',this)"><i class="fa-solid fa-house"></i> Dashboard</button>
+      <button class="nav-item" onclick="goto('products',this)"><i class="fa-solid fa-box"></i> Sản Phẩm</button>
+      <button class="nav-item" onclick="goto('inventory',this)"><i class="fa-solid fa-warehouse"></i> Thu / Nhập Kho</button>
+      <button class="nav-item" onclick="goto('customers',this)"><i class="fa-solid fa-users"></i> Khách Hàng</button>
+      <button class="nav-item" onclick="goto('revenue',this)"><i class="fa-solid fa-chart-line"></i> Doanh Thu</button>
+    </nav>
+    <div class="sb-footer">
+      <a href="shop.html" target="_blank" class="shop-link"><i class="fa-solid fa-store"></i> Xem trang Shop</a>
+      <button class="btn-logout" onclick="doLogout()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng Xuất</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- DASHBOARD -->
+    <div class="sec active" id="sec-dashboard">
+      <div class="ph"><div><h1>Trang chủ</h1><p>Tổng quan cửa hàng.</p></div>
+        <button class="btn bp" onclick="reloadData();showToast(' Đã tải lại dữ liệu!')"><i class="fa-solid fa-rotate"></i> Đồng bộ</button>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-ico ic-pk"><i class="fa-solid fa-box"></i></div><div class="stat-val" id="s-prod">0</div><div class="stat-lbl">Sản phẩm</div></div>
+        <div class="stat-card"><div class="stat-ico ic-bl"><i class="fa-solid fa-users"></i></div><div class="stat-val" id="s-cust">0</div><div class="stat-lbl">Khách hàng</div></div>
+        <div class="stat-card"><div class="stat-ico ic-gr"><i class="fa-solid fa-sack-dollar"></i></div><div class="stat-val" id="s-rev">$0</div><div class="stat-lbl">Doanh thu</div></div>
+        <div class="stat-card"><div class="stat-ico ic-yl"><i class="fa-solid fa-boxes-stacked"></i></div><div class="stat-val" id="s-stock">0</div><div class="stat-lbl">Tổng tồn kho</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-bottom:24px">
+        <div class="chart-wrap"><h4><i class="fa-solid fa-chart-bar"></i> Doanh thu 7 ngày gần nhất</h4><canvas id="chart-daily" height="130"></canvas></div>
+        <div class="chart-wrap"><h4><i class="fa-solid fa-chart-pie"></i> Sản phẩm bán nhiều nhất</h4><canvas id="chart-top" height="130"></canvas></div>
+      </div>
+      <div class="card">
+        <h4 style="font-family:'Nunito',sans-serif;font-weight:800;color:var(--pk);margin-bottom:14px"><i class="fa-solid fa-clock-rotate-left"></i> Giao Dịch Gần Đây</h4>
+        <div class="tw"><table><thead><tr><th>Thời gian</th><th>Loại</th><th>Sản phẩm</th><th>KH</th><th>SL</th><th>Giá trị</th></tr></thead>
+        <tbody id="dash-txn"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="sec" id="sec-products">
+      <div class="ph"><div><h1>Sản Phẩm </h1><p>Quản lý danh sách sản phẩm</p></div>
+        <button class="btn bp" onclick="openM('m-addp')"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</button></div>
+      <div class="card">
+        <div class="sb2"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="p-search" placeholder="Tìm kiếm sản phẩm..." oninput="renderProducts()"></div>
+        <div class="tw"><table><thead><tr><th>Ảnh</th><th>Tên sản phẩm</th><th>Giá bán</th><th>Tồn kho</th><th>Tag</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+        <tbody id="p-body"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- INVENTORY -->
+    <div class="sec" id="sec-inventory">
+      <div class="ph"><div><h1>Thu / Nhập </h1><p>Nhập hàng và ghi nhận bán hàng</p></div>
+        <div style="display:flex;gap:10px">
+          <button class="btn bg" onclick="openM('m-nhap')"><i class="fa-solid fa-arrow-down"></i> Nhập kho</button>
+          <button class="btn bp" onclick="openM('m-thu')"><i class="fa-solid fa-arrow-up"></i> Bán hàng</button>
+        </div></div>
+      <div class="card">
+        <div class="tw"><table><thead><tr><th>Thời gian</th><th>Loại</th><th>Sản phẩm</th><th>KH</th><th>SL</th><th>Đơn giá</th><th>Tổng</th><th>Ghi chú</th></tr></thead>
+        <tbody id="inv-body"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- CUSTOMERS -->
+    <div class="sec" id="sec-customers">
+      <div class="ph"><div><h1>Khách Hàng </h1><p>Quản lý thông tin khách hàng</p></div>
+        <button class="btn bp" onclick="openM('m-addc')"><i class="fa-solid fa-user-plus"></i> Thêm khách hàng</button></div>
+      <div class="card">
+        <div class="sb2"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="c-search" placeholder="Tìm kiếm khách hàng..." oninput="renderCustomers()"></div>
+        <div class="tw"><table><thead><tr><th>Tên</th><th>Email</th><th>Điện thoại</th><th>Địa chỉ</th><th>Đơn hàng</th><th>Tổng chi</th><th>Xóa</th></tr></thead>
+        <tbody id="c-body"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- REVENUE -->
+    <div class="sec" id="sec-revenue">
+      <div class="ph"><div><h1>Doanh Thu </h1><p>Tổng quan tài chính</p></div></div>
+      <div class="rev-hero">
+        <div><div class="lbl">Tổng Doanh Thu</div><div class="amt" id="r-net">$0.00</div>
+          <div style="opacity:.7;font-size:.82rem;margin-top:4px">= Thu bán hàng − Chi nhập kho</div></div>
+        <div class="ico"><i class="fa-solid fa-piggy-bank"></i></div>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-wrap"><h4><i class="fa-solid fa-chart-area"></i> Doanh thu theo ngày</h4><canvas id="chart-rev-line" height="140"></canvas></div>
+        <div class="chart-wrap"><h4><i class="fa-solid fa-chart-pie"></i> Tỉ lệ Thu / Chi</h4><canvas id="chart-rev-pie" height="140"></canvas></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:22px">
+        <div class="stat-card"><div class="stat-ico ic-gr"><i class="fa-solid fa-circle-arrow-up"></i></div><div class="stat-val" id="r-sale">$0</div><div class="stat-lbl">Thu bán hàng</div></div>
+        <div class="stat-card"><div class="stat-ico ic-yl"><i class="fa-solid fa-circle-arrow-down"></i></div><div class="stat-val" id="r-buy">$0</div><div class="stat-lbl">Chi nhập kho</div></div>
+        <div class="stat-card"><div class="stat-ico ic-bl"><i class="fa-solid fa-list-check"></i></div><div class="stat-val" id="r-txns">0</div><div class="stat-lbl">Tổng giao dịch</div></div>
+      </div>
+      <div class="card"><h4 style="font-family:'Nunito',sans-serif;font-weight:800;color:var(--pk);margin-bottom:14px">Chi Tiết Giao Dịch</h4>
+        <div class="tw"><table><thead><tr><th>Thời gian</th><th>Loại</th><th>Sản phẩm</th><th>KH</th><th>SL</th><th>Đơn giá</th><th>Tổng</th></tr></thead>
+        <tbody id="rev-body"></tbody></table></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- MODALS -->
+<!-- Add Product -->
+<div class="mo" id="m-addp"><div class="modal">
+  <h3><i class="fa-solid fa-box"></i> Thêm Sản Phẩm</h3>
+  <div class="fr"><label>Tên sản phẩm</label><input id="ap-name" placeholder="VD: Gấu Bông Hồng"></div>
+  <div class="fr"><label>Giá bán</label><input type="number" id="ap-price" placeholder="0.00" step="0.01" min="0"></div>
+  <div class="fr"><label>Tồn kho ban đầu</label><input type="number" id="ap-stock" placeholder="0" min="0"></div>
+  <div class="fr"><label>Hình ảnh</label><input id="ap-img" placeholder="bear.jpg"></div>
+  <div class="fr"><label>Mô tả</label><input id="ap-desc" placeholder="Mô tả ngắn..."></div>
+  <div class="fr"><label>Tag</label><select id="ap-tag"><option value="">Không</option><option value="hot">Bán chạy</option><option value="new"> Mới</option></select></div>
+  <div class="ma"><button class="btn bo" onclick="closeM('m-addp')">Hủy</button><button class="btn bp" onclick="addProduct()"><i class="fa-solid fa-check"></i> Thêm</button></div>
+</div></div>
+
+<!-- Edit Product -->
+<div class="mo" id="m-editp"><div class="modal">
+  <h3><i class="fa-solid fa-pen"></i> Chỉnh Sửa Sản Phẩm</h3>
+  <input type="hidden" id="ep-id">
+  <div class="fr"><label>Tên</label><input id="ep-name"></div>
+  <div class="fr"><label>Giá</label><input type="number" id="ep-price" step="0.01"></div>
+  <div class="fr"><label>Tồn kho</label><input type="number" id="ep-stock" min="0"></div>
+  <div class="fr"><label>Hình ảnh</label><input id="ep-img"></div>
+  <div class="fr"><label>Mô tả</label><input id="ep-desc"></div>
+  <div class="fr"><label>Tag</label><select id="ep-tag"><option value="">Không</option><option value="hot"> Bán chạy</option><option value="new"> Mới</option></select></div>
+  <div class="ma"><button class="btn bo" onclick="closeM('m-editp')">Hủy</button><button class="btn bp" onclick="saveEditP()"><i class="fa-solid fa-floppy-disk"></i> Lưu</button></div>
+</div></div>
+
+<!-- Nhập kho -->
+<div class="mo" id="m-nhap"><div class="modal">
+  <h3 style="color:var(--grn)"><i class="fa-solid fa-arrow-down"></i> Nhập Kho</h3>
+  <div class="fr"><label>Sản phẩm</label><select id="nhap-p"></select></div>
+  <div class="fr"><label>Số lượng</label><input type="number" id="nhap-q" min="1" placeholder="1"></div>
+  <div class="fr"><label>Giá nhập / sp</label><input type="number" id="nhap-pr" step="0.01" min="0" placeholder="0.00"></div>
+  <div class="fr"><label>Ghi chú</label><input id="nhap-n" placeholder="VD: Nhập từ NCC A"></div>
+  <div class="ma"><button class="btn bo" onclick="closeM('m-nhap')">Hủy</button><button class="btn bg" onclick="doNhap()"><i class="fa-solid fa-check"></i> Nhập kho</button></div>
+</div></div>
+
+<!-- Bán hàng -->
+<div class="mo" id="m-thu"><div class="modal">
+  <h3><i class="fa-solid fa-arrow-up"></i> Bán Hàng</h3>
+  <div class="fr"><label>Khách hàng</label><select id="thu-c"></select></div>
+  <div class="fr"><label>Sản phẩm</label><select id="thu-p" onchange="fillThuPrice()"></select></div>
+  <div class="fr"><label>Số lượng</label><input type="number" id="thu-q" min="1" placeholder="1"></div>
+  <div class="fr"><label>Giá bán /Sản Phẩm</label><input type="number" id="thu-pr" step="0.01" min="0"></div>
+  <div class="fr"><label>Ghi chú</label><input id="thu-n" placeholder="VD: Bán lẻ"></div>
+  <div class="ma"><button class="btn bo" onclick="closeM('m-thu')">Hủy</button><button class="btn bp" onclick="doThu()"><i class="fa-solid fa-check"></i> Xác nhận</button></div>
+</div></div>
+
+<!-- Add Customer -->
+<div class="mo" id="m-addc"><div class="modal">
+  <h3><i class="fa-solid fa-user-plus"></i> Thêm Khách Hàng</h3>
+  <div class="fr"><label>Họ và tên</label><input id="nc-name" placeholder="yn"></div>
+  <div class="fr"><label>Email</label><input type="email" id="nc-email" placeholder="email@gmail.com"></div>
+  <div class="fr"><label>Điện thoại</label><input id="nc-phone" placeholder="0123456789"></div>
+  <div class="fr"><label>Địa chỉ</label><input id="nc-addr" placeholder="Địa chỉ..."></div>
+  <div class="ma"><button class="btn bo" onclick="closeM('m-addc')">Hủy</button><button class="btn bp" onclick="addCustomer()"><i class="fa-solid fa-check"></i> Thêm</button></div>
+</div></div>
+
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check" style="color:var(--pk)"></i><span id="tmsg"></span></div>
+
+<script src="admin.js"></script>
+</body>
+</html>

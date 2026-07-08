@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="container navbar">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Store Logo" class="logo-image" style="height:1em;width:auto;border-radius:4px;" />
+        <span>Store</span>
+      </a>
+      
+      <button class="mobile-menu-btn">☰</button>
+      
+      <ul class="nav-links">
+      
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="admin.html">Admin</a></li>
+
+      </ul>
+            <a href="cart.html" class="cart-icon-container" style="font-size:1.4rem;color:var(--dark-brown);position:relative;text-decoration:none;">
+        🛒 <span class="cart-badge" id="nav-badge">0</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="container section-padding">
+    <h1 class="section-title text-center">Say Hello</h1>
+    <p class="section-subtitle text-center">We'd love to hear from you!</p>
+
+    <div class="contact-content">
+      <div class="contact-grid">
+        
+        <div>
+          <h3 style="margin-bottom: 20px; font-family: var(--font-heading);">Send us a message</h3>
+          <form class="contact-form">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" required placeholder="Jane Doe">
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" required placeholder="jane@example.com">
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" rows="5" required placeholder="How can we help?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+
+        <div>
+          <h3 style="margin-bottom: 20px; font-family: var(--font-heading);">Frequently Asked Questions</h3>
+          
+          <div class="faq-item">
+            <h4>
+              + How long does shipping take?
+            </h4>
+            <p style="display: none; color: #666; margin-top: 10px;">Orders typically ship within 2-3 business days and arrive in 5-7 business days.</p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              + How do I wash my plushie?
+            </h4>
+            <p style="display: none; color: #666; margin-top: 10px;">We recommend gentle spot cleaning or hand washing with mild soap to keep them perfectly soft.</p>
+          </div>
+
+          <div class="faq-item">
+            <h4>
+              + Do you ship internationally?
+            </h4>
+            <p style="display: none; color: #666; margin-top: 10px;">Yes! We want our plush friends to travel all over the world.</p>
+          </div>
+
+          <div style="margin-top: 40px;">
+            <h3 style="margin-bottom: 15px; font-family: var(--font-heading);">Follow Us</h3>
+            <div style="font-size: 2rem; display: flex; gap: 15px;">
+              <span style="cursor: pointer;">📸</span>
+              <span style="cursor: pointer;">🐦</span>
+              <span style="cursor: pointer;">📘</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>☁️ Store</h3>
+          <p style="color: #666; font-size: 0.9rem;">Người bạn mềm mại trong giấc ngủ của bạn.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="shop.html">Shop All</a></li>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="contact.html">FAQ</a></li>
+            <li>
+              <a href="cart.html" class="cart-icon-container" style="font-size:1.5rem; color:var(--dark-brown);">
+                🛒 <span class="cart-badge">0</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Tham Gia ngay</h3>
+          <p style="color: #666; font-size: 0.9rem;">Tham gia cộng đồng của chúng tôi để nhận được những ưu đãi đặc biệt và cập nhật mới nhất!</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your email" required>
+            <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 Store.
+      </div>
+    </div>
+  </footer>
+  
+  <script src="app.js"></script>
+</body>
+</html>
